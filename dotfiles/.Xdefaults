@@ -1,0 +1,59 @@
+
+Xft.autohint: 0
+Xft.antialias: 1
+Xft.hinting: true
+Xft.hintingstyle: hintslight
+Xft.dpi: 96
+Xft.rgba: rgb
+Xft.lcdfilter: lcddefault
+
+!------------------------------------------------------------------------------
+! c o l o r -  s e t t i n g s
+
+*background: #222222
+!*foreground: #777777
+*foreground: #AAAAAA
+
+! Default
+! 0: black
+!*color0:  #222222
+!*color8:  #222222
+! 1: red
+!*color1:  #9f6767
+!*color9:  #9f6767
+! 2: green
+!*color2:  #92ac68
+!*color10: #92ac68
+! 3: yellow
+!*color3:  #d0d293
+!*color11: #d0d293
+! 4: blue
+!*color4:  #9aacc3
+!*color12: #9aacc3
+! 5: magenta
+!*color5:  #bb77a4
+!*color13: #bb77a4
+! 6: cyan
+!*color6:  #77bbb5
+!*color14: #77bbb5
+! 7: white
+!*color7:  #777777
+!*color15: #777777
+
+!------------------------------------------------------------------------------
+! u r x v t
+
+!URxvt*geometry:         112x22  
+!URxvt*font:            xft:Ubuntu Mono-13
+URxvt*urlLauncher:         chromium  
+URxvt*scrollBar:        false
+URxvt*scrollBar_right:        true
+URxvt*scrollColor:        #000000
+URxvt*.transparent: true
+! URxvt*.shading: 0 to 99 darkens, 101 to 200 lightens
+URxvt*.shading: 25
+
+URxvt*font: -xos4-terminus-medium-*-*-*-17-*-*-*-*-*-iso8859-15,xft:terminus:pixelsize:17
+URxvt*boldFont: -xos4-terminus-bold-*-*-*-17-*-*-*-*-*-iso8859-15,xft:terminus:bold:pixelsize:17
+URxvt*italicFont: xft:Bitstream Vera Sans Mono:italic:autohint=true:pixelsize=17
+URxvt*boldItalicFont: xft:Bitstream Vera Sans Mono:bold:italic:autohint=true:pixelsize=17
