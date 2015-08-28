@@ -1,37 +1,49 @@
 #!/bin/bash
+lock(){
+    dm-tool lock
+}
+
 #echo -e "\tLock\n\tLogout\n\tSuspend\n\tHibernate\n\tReboot\n\tShut down" | rofi -dmenu -p '    ..: System menu:.. ' -no-custom -i -width -30
 #res=$(rofi -dmenu < ~/.dmenu-i3exit)
 
 title="    ..: System menu:.. "
-lock="\tLock"
-logout="\tLogout"
-suspend="\tSuspend"
-hibernate="\tHibernate"
-reboot="\tReboot"
-shutdown="\tShut down"
+lock="           Lock         " # F39E
+logout="          Logout        " # F300
+#userswap="        Switch user     " # F3D9
+suspend="         Suspend"
+hibernate="         Hibernate"
+#reboot="          Reboot        " # F301
+reboot="          Reboot        " # F10E
+shutdown="         Shut down      " # FO11
 
-menu=$lock"\n"$logout"\n"$suspend"\n"$hibernate"\n"$reboot"\n"$shutdown"\n"
+#menu="\t"$lock"\n\t"$logout"\n"$userswap"\n\t"$suspend"\n\t"$hibernate"\n\t"$reboot"\n\t"$shutdown
+menu=$lock"\n"$logout"\n"$reboot"\n"$shutdown
 
-command=\"$menu\"" | rofi -dmenu -p "\"$title\"" -no-custom -width -30"
+command=" | rofi -dmenu  -no-custom -width -30 -p "
 
-echo $command
-echo -e $command
-
-
-echo -e "$menu | rofi -dmenu -p '$title' -no-custom -width -30"
-
-#res = $(echo -e "\tLock\n\tLogout\n\tSuspend\n\tHibernate\n\tReboot\n\tShut down" | rofi -dmenu -p '    ..: System menu:.. ' -no-custom -width -30 -i)
 #res = $(echo -e "\tLock\n\tLogout\n\tSuspend\n\tHibernate\n\tReboot\n\tShut down" | rofi -dmenu -p $title -no-custom -width -30)
-#echo $res
-exit $res
 
-if [ $res = "logout" ]; then
+res=$(echo -e "$menu" | rofi -dmenu -no-custom -width -30 -p "$title")
+
+
+if [ "$res" == "$lock" ]; then
+    lock
+#	echo LOCK
+fi
+if [[ $res = $logout ]]; then
     i3-msg exit
+#	echo LOGOUT
 fi
-if [ $res = "restart" ]; then
-    reboot
+if [[ $res = $userswap ]]; then
+    i3-msg exit
+#	echo SWITCH USER
 fi
-if [ $res = "shutdown" ]; then
-    poweroff
+if [[ $res = $reboot ]]; then
+    systemctl reboot
+#	echo REBOOT
+fi
+if [[ $res = $shutdown ]]; then
+    systemctl poweroff -i
+#	echo SHUT DOWN
 fi
 exit 0

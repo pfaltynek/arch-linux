@@ -1,0 +1,14 @@
+!hint: to update immediatelly run: xrdb -load ~/.Xresources
+
+!------------------------------------------------------------------------------
+! r o f i
+!------------------------------------------------------------------------------
+rofi.bg: #222222
+rofi.bgalt: #333333
+rofi.hlbg: #005577
+rofi.fg: #BBBBBB
+rofi.hlfg: #EDED00
+rofi.bc: #EDED00
+rofi.bw: 2
+rofi.opacity: 85
+!rofi.font: 'Ubuntu 12'

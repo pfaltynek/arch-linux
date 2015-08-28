@@ -1,4 +1,6 @@
-
+!------------------------------------------------------------------------------
+! f o n t  - f i n e t u n i n g
+!------------------------------------------------------------------------------
 Xft.autohint: 0
 Xft.antialias: 1
 Xft.hinting: true
@@ -6,10 +8,9 @@ Xft.hintingstyle: hintslight
 Xft.dpi: 96
 Xft.rgba: rgb
 Xft.lcdfilter: lcddefault
-
 !------------------------------------------------------------------------------
 ! c o l o r -  s e t t i n g s
-
+!------------------------------------------------------------------------------
 *background: #222222
 !*foreground: #777777
 *foreground: #AAAAAA
@@ -42,16 +43,13 @@ Xft.lcdfilter: lcddefault
 
 !------------------------------------------------------------------------------
 ! u r x v t
-
-!URxvt*geometry:         112x22  
-!URxvt*font:            xft:Ubuntu Mono-13
-URxvt*urlLauncher:         chromium  
-URxvt*scrollBar:        false
-URxvt*scrollBar_right:        true
-URxvt*scrollColor:        #000000
-URxvt*.transparent: true
-! URxvt*.shading: 0 to 99 darkens, 101 to 200 lightens
-URxvt*.shading: 25
+!------------------------------------------------------------------------------
+URxvt*urlLauncher:         	chromium  
+URxvt*scrollBar:        	true
+URxvt*scrollBar_right:		true
+URxvt*scrollColor:			#000000
+URxvt*.transparent:			true
+URxvt*.shading: 			25 				!0 to 99 darkens, 101 to 200 lightens
 
 URxvt*font: -xos4-terminus-medium-*-*-*-17-*-*-*-*-*-iso8859-15,xft:terminus:pixelsize:17
 URxvt*boldFont: -xos4-terminus-bold-*-*-*-17-*-*-*-*-*-iso8859-15,xft:terminus:bold:pixelsize:17
