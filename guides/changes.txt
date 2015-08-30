@@ -1,0 +1,5 @@
+arch changes:
+	/etc/lightdm/lightdm-gtk-greeter.conf -> /etc/lightdm/lightdm-gtk-greeter.conf.pacnew
+	/etc/pacman.d/mirrorlist -> /etc/pacman.d/mirrorlist.pacnew
+	
+	

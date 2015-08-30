@@ -1,0 +1,244 @@
+﻿#read -p "Press any key to continue... " -n1 -s
+
+loadkeys cz-qwertz
+setfont Lat2-Terminus16
+nano /etc/locale.gen
+  cs_CZ.UTF-8 UTF-8
+  cs_CZ ISO-8859-2
+locale-gen
+export LANG=cs_CZ.UTF-8
+
+ping -c 3 www.google.com
+
+fdisk -l
+cfdisk /dev/sda  # partitioning
+cfdisk /dev/sdb  # partitioning
+#fdisk /dev/sda  # partitioning
+#fdisk /dev/sdb  # partitioning
+
+#sda5 /
+#sda6 /data
+#sda7 swap
+#sda8 /home
+
+mkfs.ext4 /dev/sda1
+mkfs.ext4 /dev/sdb1
+mkswap /dev/sda2
+swapon /dev/sda2
+
+lsblk /dev/sda
+lsblk /dev/sdb
+mount /dev/sda1 /mnt
+mkdir /mnt/home
+mount /dev/sdb1 /mnt/home
+From 
+nano /etc/pacman.d/mirrorlist
+# move Czech mirrors to top
+
+pacstrap /mnt base base-devel
+arch-chroot /mnt pacman -S grub-bios
+arch-chroot /mnt pacman -S syslinux
+genfstab -p /mnt >> /mnt/etc/fstab
+arch-chroot /mnt /bin/bash
+
+nano /etc/hostname
+  #petras-arch-vb
+
+nano /etc/hosts
+  # add hostname to the end of line starting '127.0.0.1' to look like
+  #127.0.0.1	localhost.localdomain	localhost petras-arch-vb
+      
+ln -s /usr/share/zoneinfo/Europe/Prague /etc/localtime
+nano /etc/locale.gen
+  cs_CZ.UTF-8 UTF-8
+  cs_CZ ISO-8859-2
+locale-gen
+
+export LANG=cs_CZ.UTF-8
+
+locale > /etc/locale.conf
+#nano /etc/vconsole.conf
+#  KEYMAP=cz-qwertz
+#  FONT=Lat2-Terminus16
+#  FONT_MAP=8859-2_to_uni
+echo KEYMAP=cz-qwertz >> /etc/vconsole.conf 
+echo FONT=Lat2-Terminus16 >> /etc/vconsole.conf
+echo FONT_MAP=8859-2_to_uni >> /etc/vconsole.conf
+  
+  
+nano /etc/mkinitcpio.conf
+  #add 'consolefont' into HOOKS:
+  #HOOKS="base udev autodetect modconf  block filesystems keyboard fsck consolefont"
+   #add 'radeon' into modules:
+   # MODULES="radeon"
+
+mkinitcpio -p linux
+
+pacman -S ifplugd iw wpa_supplicant dialog bash-completion
+pacman -S rxvt-unicode  
+pacman -S virtualbox-guest-utils  virtualbox-guest-modules dkms # for installation into Virtual Box
+
+grub-install --target=i386-pc --recheck --debug /dev/sda
+grub-mkconfig -o /boot/grub/grub.cfg
+
+passwd
+
+ip link # get inteface name like 'enp0s3'
+systemctl enable dhcpcd@enp0s3.service
+reboot
+
+systemctl status dhcpcd@enp0s3.service
+
+#useradd -m -G wheel -s /bin/bash petras
+useradd -m -G users,audio,video,wheel,storage,optical,power,games,lp -s /bin/bash petras
+
+nano /etc/sudoers
+
+# under "root ALL=(ALL) ALL" add line
+# petras ALL=(ALL) ALL
+## or uncoment WHEEL line
+
+passwd petras
+
+logout
+login # as petras
+logout
+login # as root
+================================================================================
+pacman -S alsa-utils alsa-plugins alsa-oss
+
+alsamixer
+#alsactl store
+amixer sset Master unmute
+
+nano /etc/rc.conf
+# add "dbus"
+# add "alsa"
+
+pacman -S libgl
+pacman -S xorg #select default for all
+pacman -S mesa
+pacman -S xf86-video-ati # amd/radeon
+pacman -S xorg-xinit
+pacman -S xterm
+pacman -S dbus
+pacman -S xorg-twm
+pacman -S lxappearance
+pacman -S gnome-themes-standard                              
+pacman -S i3status i3-wm dmenu terminus-font ttf-dejavu ttf-bitstream-vera ttf-font-icons ttf-ubuntu-font-family dunst
+pacman -S chromium libgnome-keyring
+pacman -S wicd-gtk
+
+## login as petras
+
+cp /etc/X11/xinit/xinitrc ~/.xinitrc
+## comment default xterm, twm and other lines and add:
+	exec i3
+
+startx
+
+
+localectl set-x11-keymap cz qwertz	
+	## možná bude nutno znovu nano /etc/vconsole.conf
+#localectl set-x11-keymap cz microsoft4000 qwertz
+#localectl set-x11-keymap cz acer_laptop qwertz
+
+yaourt git subversion thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman thunar-vcs-plugin
+
+systemctl disble dhcpcd@enp0s3.service
+systemctl enable wicd
+
+nano /.XDefaults
+# add "Xft.autohint: 0"
+# add "Xft.antialias: 1"
+# add "Xft.hinting: true"
+# add "Xft.hintstyle: hintslight"
+# add "Xft.dpi: 96"
+# add "Xft.rgba: rgb"
+# add "Xft.lcdfilter: lcddefault"
+
+
+
+
+
+
+
+yaourt -S volti python2-xlib gmrun 
+# cursor theme Adwaita 
+# faience-icon-theme
+# yaourt -S gtk-theme-arc-git
+
+# theme Zukitwo, holo-theme
+
+# text editor mousepad
+================================================================================
+
+lspci | grep VGA
+sudo pacman -S xf86-video-ati # amd/radeon
+
+sudo pacman -S ttf-dejavu ttf-ubuntu-font-family
+
+------- XSERVER -------------------------
+sudo pacman -S xorg xorg-xinit xorg-twm xterm
+startx
+------- LIGHTDM -------------------------
+sudo pacman -S lightdm lightdm-gtk-greeter accountsservice light-locker
+sudo systemctl enable lightdm 
+
+
+
+********************************************************************************
+parole media player - video player from xubuntu
+ristretto - image viewer from xfce
+  + tumbler (thumbnails)
+    + ffmpegthumbnailer poppler-glib
+    
+********************************************************************************
+#make Qt app use Gtk theme:
+qtconfig-gt4
+#for Qt5 add following line into /etc/environment:
+  QT_STYLE_OVERRIDE=gtk 
+
+############################
+#i3
+yaourt -S j4-dmenu-desktop dmenu-xft  rofi
+yaourt -S archlinux-wallpaper
+
+############################
+#fonts
+yaourt -S ttf-dejavu ttf-ubuntu-font-family gnome-font-viewer ttf-font-awesome ttf-font-icons
+#http://www.google.com/fonts#UsePlace:use/Collection:Exo
+
+############################
+#Code::Blocks
+yaourt -S codeblocks-svn
+
+############################
+#SDL2
+yaourt -S sdl2 sdl2_mixer sdl2_gfx sdl2_ttf sdl2_image 
+
+############################
+#MonoDevelop
+yaourt -S monodevelop monodevelop-debugger-gdb
+
+############################
+# all servers script
+yaourt -S pkgcacheclean allservers
+
+############################
+# glances - monitoring tool
+yaourt -S glances hddtemp
+
+############################
+# multimedia
+yaourt -S banshee gst-plugins-ugly gst-libav brasero vlc
+
+############################
+# calculator
+yaourt -S gcalculator
+# other options: calc, gnome-calculator
+
+############################
+# SiN
+# lib32 needed to run on 64bit system
+yaourt -S lib32-libpulse lib32-glibc lib32-mesa lib32-mesa-libgl
