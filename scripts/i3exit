@@ -25,6 +25,7 @@ command=" | rofi -dmenu  -no-custom -width -30 -p "
 
 res=$(echo -e "$menu" | rofi -dmenu -no-custom -width -30 -p "$title")
 
+echo -e $res
 
 if [ "$res" == "$lock" ]; then
     lock
@@ -33,10 +34,6 @@ fi
 if [[ $res = $logout ]]; then
     i3-msg exit
 #	echo LOGOUT
-fi
-if [[ $res = $userswap ]]; then
-    i3-msg exit
-#	echo SWITCH USER
 fi
 if [[ $res = $reboot ]]; then
     systemctl reboot
@@ -47,3 +44,8 @@ if [[ $res = $shutdown ]]; then
 #	echo SHUT DOWN
 fi
 exit 0
+
+#if [[ $res = $userswap ]]; then
+##    i3-msg exit
+#	echo SWITCH USER
+#fi
