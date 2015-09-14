@@ -6,15 +6,15 @@ lock(){
 #echo -e "\tLock\n\tLogout\n\tSuspend\n\tHibernate\n\tReboot\n\tShut down" | rofi -dmenu -p '    ..: System menu:.. ' -no-custom -i -width -30
 #res=$(rofi -dmenu < ~/.dmenu-i3exit)
 
-title="    ..: System menu:.. "
-lock="           Lock         " # F39E
-logout="          Logout        " # F300
-#userswap="        Switch user     " # F3D9
-suspend="         Suspend"
-hibernate="         Hibernate"
-#reboot="          Reboot        " # F301
-reboot="          Reboot        " # F10E
-shutdown="         Shut down      " # FO11
+title="   ..: System menu:.. "
+lock="          Lock         " # F39E
+logout="         Logout        " # F300
+#userswap="       Switch user     " # F3D9
+suspend="        Suspend"
+hibernate="        Hibernate"
+#reboot="         Reboot        " # F301
+reboot="         Reboot        " # F10E
+shutdown="        Shut down      " # FO11
 
 #menu="\t"$lock"\n\t"$logout"\n"$userswap"\n\t"$suspend"\n\t"$hibernate"\n\t"$reboot"\n\t"$shutdown
 menu=$lock"\n"$logout"\n"$reboot"\n"$shutdown
@@ -25,8 +25,6 @@ command=" | rofi -dmenu  -no-custom -width -30 -p "
 
 res=$(echo -e "$menu" | rofi -dmenu -no-custom -width -30 -p "$title")
 
-echo -e $res
-
 if [ "$res" == "$lock" ]; then
     lock
 #	echo LOCK
@@ -35,6 +33,10 @@ if [[ $res = $logout ]]; then
     i3-msg exit
 #	echo LOGOUT
 fi
+#if [[ $res = $userswap ]]; then
+#    i3-msg exit
+#	echo SWITCH USER
+#fi
 if [[ $res = $reboot ]]; then
     systemctl reboot
 #	echo REBOOT
@@ -44,8 +46,3 @@ if [[ $res = $shutdown ]]; then
 #	echo SHUT DOWN
 fi
 exit 0
-
-#if [[ $res = $userswap ]]; then
-##    i3-msg exit
-#	echo SWITCH USER
-#fi

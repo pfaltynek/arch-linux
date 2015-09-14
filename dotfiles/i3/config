@@ -228,7 +228,8 @@ bar {
 
 # wallpaper
 #exec --no-startup-id "feh --bg-scale /usr/share/archlinux/wallpaper/archlinux-simplyblack.png"
-exec --no-startup-id "feh --bg-scale /home/petras/Pictures/wallpapers/Iamarch2560x1440.png"
+#exec --no-startup-id "feh --bg-scale /home/petras/Pictures/wallpapers/Iamarch2560x1440.png"
+exec --no-startup-id "feh --bg-scale /home/petras/Pictures/wallpapers/women-arch-linux-wallpaper.jpg"
 
 # wicd - network manager
 exec --no-startup-id "wicd-client --tray"
