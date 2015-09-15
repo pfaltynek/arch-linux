@@ -125,7 +125,7 @@ pacman -S dbus
 pacman -S xorg-twm
 pacman -S lxappearance
 pacman -S gnome-themes-standard                              
-pacman -S i3status i3-wm dmenu terminus-font ttf-dejavu ttf-bitstream-vera ttf-font-icons ttf-ubuntu-font-family dunst
+pacman -S i3status i3-wm dmenu terminus-font ttf-dejavu ttf-bitstream-vera ttf-font-icons ttf-ubuntu-font-family dunst gnome-font-viewer
 pacman -S chromium libgnome-keyring
 pacman -S wicd-gtk
 
