@@ -145,6 +145,9 @@ localectl set-x11-keymap cz qwertz
 
 yaourt -S git subversion thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman thunar-vcs-plugin
 yaourt -S python-configobj pygtk python2-pysvn python2-dulwich dbus-python subversion meld rabbitvcs rabbitvcs-thunar
+yaourt -S xdg-user-dirs
+xdg-user-dirs-update
+# then edit ~/.config/user-dirs.dirs
 
 systemctl disble dhcpcd@enp0s3.service
 systemctl enable wicd
