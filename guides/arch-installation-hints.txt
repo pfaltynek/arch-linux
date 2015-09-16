@@ -143,7 +143,8 @@ localectl set-x11-keymap cz qwertz
 #localectl set-x11-keymap cz microsoft4000 qwertz
 #localectl set-x11-keymap cz acer_laptop qwertz
 
-yaourt git subversion thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman thunar-vcs-plugin
+yaourt -S git subversion thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman thunar-vcs-plugin
+yaourt -S python-configobj pygtk python2-pysvn python2-dulwich dbus-python subversion meld rabbitvcs rabbitvcs-thunar
 
 systemctl disble dhcpcd@enp0s3.service
 systemctl enable wicd
