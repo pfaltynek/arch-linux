@@ -98,7 +98,7 @@ bindsym $ALTF4 kill
 #bindsym $mod+d exec --no-startup-id j4-dmenu-desktop  --dmenu "dmenu -i -fn 'Ubuntu-11:bold' -sb '#005577' -sf '#EDED00' -nf '#BBBBBB' -nb '#222222'"
 #bindsym $mod+d exec  j4-dmenu-desktop --dmenu="/usr/bin/rofi -dmenu -p '>' -bg '#222222' -hlbg '#005577' -fg '#BBBBBB' -hlfg '#EDED00' -bc '#EDED00' -bw 2  -opacity 90 " # -font 'Ubuntu 12'  "
 #bindsym $mod+Shift+d exec --no-startup-id dmenu_run -i -fn 'Ubuntu-11:bold' -sb '#005577' -sf '#EDED00' -nf '#BBBBBB' -nb '#222222'
-bindsym $mod+d exec  j4-dmenu-desktop --dmenu="/usr/bin/rofi -dmenu -p '>' "
+bindsym $mod+d exec  j4-dmenu-desktop --dmenu="/usr/bin/rofi -dmenu -p '>' -i"
 
 # change focus
 #bindsym $mod+j focus left
