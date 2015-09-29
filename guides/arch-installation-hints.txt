@@ -150,6 +150,7 @@ yaourt -S xdg-user-dirs
 xdg-user-dirs-update
 # then edit ~/.config/user-dirs.dirs
 
+yaourt -S hddtemp glances htop
 systemctl disble dhcpcd@enp0s3.service
 systemctl enable wicd
 
