@@ -124,7 +124,7 @@ pacman -S xterm
 pacman -S dbus
 pacman -S xorg-twm
 pacman -S lxappearance
-pacman -S gnome-themes-standard                              
+pacman -S gnome-themes-standard
 pacman -S i3status i3-wm dmenu terminus-font ttf-dejavu ttf-bitstream-vera ttf-font-icons ttf-ubuntu-font-family dunst gnome-font-viewer
 pacman -S chromium libgnome-keyring
 pacman -S wicd-gtk
@@ -137,13 +137,12 @@ cp /etc/X11/xinit/xinitrc ~/.xinitrc
 
 startx
 
-
 localectl set-x11-keymap cz qwertz	
 	## možná bude nutno znovu nano /etc/vconsole.conf
 #localectl set-x11-keymap cz microsoft4000 qwertz
 #localectl set-x11-keymap cz acer_laptop qwertz
 
-yaourt -S pkgcacheclean
+yaourt -S pkgcacheclean gtk-theme-arc-git
 yaourt -S git subversion thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman thunar-vcs-plugin
 yaourt -S python-configobj pygtk python2-pysvn python2-dulwich dbus-python subversion meld rabbitvcs rabbitvcs-thunar
 yaourt -S xdg-user-dirs
@@ -151,9 +150,11 @@ xdg-user-dirs-update
 # then edit ~/.config/user-dirs.dirs
 
 yaourt -S hddtemp glances htop
+yaourt -S keepass
+
 systemctl disble dhcpcd@enp0s3.service
 systemctl enable wicd
-
+================================================================================
 nano /.XDefaults
 # add "Xft.autohint: 0"
 # add "Xft.antialias: 1"
@@ -162,12 +163,7 @@ nano /.XDefaults
 # add "Xft.dpi: 96"
 # add "Xft.rgba: rgb"
 # add "Xft.lcdfilter: lcddefault"
-
-
-
-
-
-
+================================================================================
 
 yaourt -S volti python2-xlib gmrun 
 # cursor theme Adwaita 
