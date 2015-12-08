@@ -1,0 +1,50 @@
+IAR Kickstart kit STM32L152VB-EXP with magnetometer
+===================================================
+#install OpenOCD
+sudo pacman -S openocd
+
+#make sure that J-Link Lite device is connected and identified
+lsusb
+#result contains line like
+## Bus 007 Device 002: ID 1366:0101 SEGGER J-Link PLUS
+
+#instal udev rules
+sudo cp /usr/share/openocd/contrib/99-openocd.rules /etc/udev/rules.d/
+#add group plugdev
+groupadd plugdev
+#add user into plugdev group
+sudo usermod -aG plugdev petras
+
+#check openocd functionality with J-Link Lite
+openocd -f interface/jlink.cfg -f target/stm32l1.cfg
+## result like:
+## Open On-Chip Debugger 0.9.0 (2015-05-19-13:50)
+## Licensed under GNU GPL v2
+## For bug reports, read
+## 	http://openocd.org/doc/doxygen/bugs.html
+## Info : auto-selecting first available session transport "jtag". To override use 'transport select <transport>'.
+## adapter speed: 300 kHz
+## adapter_nsrst_delay: 100
+## jtag_ntrst_delay: 100
+## none separate
+## cortex_m reset_config sysresetreq
+## Info : J-Link ARM Lite V8 compiled Oct 29 2014 09:03:16
+## Info : J-Link caps 0xb9ff7bbf
+## Info : J-Link hw version 80000
+## Info : J-Link hw type J-Link
+## Info : J-Link max mem block 9328
+## Info : J-Link configuration
+## Info : USB-Address: 0x0
+## Info : Kickstart power on JTAG-pin 19: 0xffffff01
+## Info : Vref = 3.313 TCK = 0 TDI = 1 TDO = 1 TMS = 1 SRST = 1 TRST = 1
+## Info : J-Link JTAG Interface ready
+## Info : clock speed 300 kHz
+## Info : JTAG tap: stm32l1.cpu tap/device found: 0x4ba00477 (mfg: 0x23b, part: 0xba00, ver: 0x4)
+## Info : JTAG tap: stm32l1.bs tap/device found: 0x06416041 (mfg: 0x020, part: 0x6416, ver: 0x0)
+## Info : stm32l1.cpu: hardware has 6 breakpoints, 4 watchpoints
+ 
+# make configuration file for openocd and store in ~/.openocd/openocd.cfg:
+source [find interface/jlink.cfg]
+source [find target/stm32l1.cfg]
+
+sudo pacman -S arm-none-eabi-gcc
