@@ -11,4 +11,6 @@ rofi.hlfg: #EDED00
 rofi.bc: #EDED00
 rofi.bw: 2
 rofi.opacity: 85
-!rofi.font: 'Ubuntu 12'
+rofi.font: Input Mono 16
+!rofi.font: Cantarell 13
+!rofi.font: Dejavu Sans Mono 14
