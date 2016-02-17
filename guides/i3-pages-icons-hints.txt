@@ -1,0 +1,51 @@
+awesome font icons: 
+http://fortawesome.github.io/Font-Awesome/cheatsheet/
+
+page 1	- Terminal "" 0xF120
+			 	- apps: urxvt, xterm
+				 
+page 2	 - web "" 0xF268
+			 	- apps: Chromium, Firefox
+				 
+page 3	 - File managers "" 0xF07C
+			 	- apps: Sunflower, Thunar
+				 
+page 4	 - development "" 0xF188
+			 	- apps: MonoDevelop, Code::Blocks, Visual Studio Code
+				 
+page 5	 - Images "" 0xF03E
+			 	- apps: GIMP, Ristretto
+				 
+page 6	 - Movie "" 0xF008
+			 	- apps: VLC
+				 
+page 7	 - Music "" 0xF001
+			 	- apps: ncmpcpp
+				 
+page 8	 - Download "" 0xF019
+			 	- apps: Transmission
+				 
+page 9	 - ???
+			 	- apps: 
+				 
+page 10	 - Games "" 0xF11B
+			 	- apps: 
+----------------------------------
+icons for status:
+-----------------
+time:					"" 0xF017
+date:					"" 0xF073
+wifi:					"" 0xF1EB
+battery:
+	0%					"" 0xF244
+	25%					"" 0xF243
+	50%					"" 0xF242
+	75%					"" 0xF241
+	100%				"" 0xF240
+volume:
+	down:				"" 0xF027
+	up:					"" 0xF028
+	off:				"" 0xF026
+disc root: 		"" 0xF17C
+disc home:		"" 0xF015
+disc data:		"" 0xF0A0
