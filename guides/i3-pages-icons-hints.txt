@@ -35,6 +35,7 @@ icons for status:
 -----------------
 time:					"" 0xF017
 date:					"" 0xF073
+sys load:			"" 0xF0E4
 wifi:					"" 0xF1EB
 battery:
 	0%					"" 0xF244
