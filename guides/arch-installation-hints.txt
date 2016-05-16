@@ -75,6 +75,8 @@ pacman -S alsa-utils alsa-tools alsa-plugins alsa-oss
 alsamixer
 sudo alsactl store
 
+
+
 ----- reboot & login as user (petras)
 
 #### ACER-NTB ####
@@ -92,13 +94,44 @@ ip link # get inteface name like 'enp0s3'
 sudo dhcpcd enp0s3 # to get temporary internet connection on line - 
 ####
 
+sudo pacman -S thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman 
+sudo pacman -S gvfs gvfs-google gvfs-gphoto2 gvfs-mtp gvfs-nfs gvfs-smb
+sudo pacman -S parted gptfdisk ntfs-3g dosfstools gnome-keyring gvfs-afc mousepad chromium libgnome ttf-anonymous-pro ttf-dejavu ttf-bitstream-vera 
+ttf-ubuntu-font-family rofi lxappearance-gtk3 git
 sudo pacman - S xorg xorg-xinit rxvt-unicode
 ================================================================
+git clone https://aur.archlinux.org/package-query.git
+cd package-query
+makepkg -si
+cd ..
+git clone https://aur.archlinux.org/yaourt.git
+cd yaourt
+makepkg -si
+cd ..
+================================================================
+yaourt -S ttf-font-icons gtk-theme-dark-arc-git sunflower
 ================================================================
 
-alsamixer
-#alsactl store
-amixer sset Master unmute
+======================================================
+XkbModel
+	acer_c300
+	acer_ferrari4k
+	acer_laptop
+XkbLayout
+	cz
+XkbVariant
+	qwertz
+XkbOptions
+	terminate:ctrl_alt_bksp
+####### into .xinitrc:
+setxkbmap -model acer_laptop -layout cz  -option terminate:ctrl_alt_bksp
+======================================================
+
+
+
+
+
+
 
 nano /etc/rc.conf
 # add "dbus"
