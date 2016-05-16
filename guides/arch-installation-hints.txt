@@ -1,70 +1,47 @@
-﻿#read -p "Press any key to continue... " -n1 -s
+﻿
 
 loadkeys cz-qwertz
 setfont Lat2-Terminus16
-nano /etc/locale.gen
-  cs_CZ.UTF-8 UTF-8
-  cs_CZ ISO-8859-2
-locale-gen
-export LANG=cs_CZ.UTF-8
 
 ping -c 3 www.google.com
 
-fdisk -l
+lsblk
 cfdisk /dev/sda  # partitioning
 cfdisk /dev/sdb  # partitioning
-#fdisk /dev/sda  # partitioning
-#fdisk /dev/sdb  # partitioning
-
-#sda5 /
-#sda6 /data
-#sda7 swap
-#sda8 /home
-
+cfdisk /dev/sdc  # partitioning
 mkfs.ext4 /dev/sda1
-mkfs.ext4 /dev/sdb1
-mkswap /dev/sda2
-swapon /dev/sda2
-
+mkfs.ext4 /dev/sdc1
+mkswap /dev/sdb1
+swapon /dev/sdb1
 lsblk /dev/sda
 lsblk /dev/sdb
+lsblk /dev/sdc
 mount /dev/sda1 /mnt
 mkdir /mnt/home
 mount /dev/sdb1 /mnt/home
-From 
-nano /etc/pacman.d/mirrorlist
-# move Czech mirrors to top
 
+pacman-optimize && sync # instead of: rankmirrors -n 10 /etc/pacman.d/mirrorlist.pacnew > /etc/pacman.d/mirrorlist
 pacstrap /mnt base base-devel
-arch-chroot /mnt pacman -S grub-bios
-arch-chroot /mnt pacman -S syslinux
+arch-chroot /mnt pacman -S grub-bios mc w3m
 genfstab -p /mnt >> /mnt/etc/fstab
-arch-chroot /mnt /bin/bash
-
-nano /etc/hostname
-  #petras-arch-vb
-
-nano /etc/hosts
-  # add hostname to the end of line starting '127.0.0.1' to look like
-  #127.0.0.1	localhost.localdomain	localhost petras-arch-vb
-      
+arch-chroot /mnt
+echo petras-arch > /etc/hostname
 ln -s /usr/share/zoneinfo/Europe/Prague /etc/localtime
+######## Not needed?
+#nano /etc/hosts
+#  # add hostname to the end of line starting '127.0.0.1' to look like
+#  #127.0.0.1	localhost.localdomain	localhost petras-arch-vb
+########     
 nano /etc/locale.gen
   cs_CZ.UTF-8 UTF-8
   cs_CZ ISO-8859-2
 locale-gen
-
 export LANG=cs_CZ.UTF-8
-
 locale > /etc/locale.conf
-#nano /etc/vconsole.conf
-#  KEYMAP=cz-qwertz
-#  FONT=Lat2-Terminus16
-#  FONT_MAP=8859-2_to_uni
+
 echo KEYMAP=cz-qwertz >> /etc/vconsole.conf 
 echo FONT=Lat2-Terminus16 >> /etc/vconsole.conf
 echo FONT_MAP=8859-2_to_uni >> /etc/vconsole.conf
-  
   
 nano /etc/mkinitcpio.conf
   #add 'consolefont' into HOOKS:
@@ -74,23 +51,18 @@ nano /etc/mkinitcpio.conf
 
 mkinitcpio -p linux
 
-pacman -S ifplugd iw wpa_supplicant dialog bash-completion
-pacman -S rxvt-unicode  
-pacman -S virtualbox-guest-utils  virtualbox-guest-modules dkms # for installation into Virtual Box
-
 grub-install --target=i386-pc --recheck --debug /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 
 passwd
 
-ip link # get inteface name like 'enp0s3'
-systemctl enable dhcpcd@enp0s3.service
-reboot
+pacman -S wicd wicd-gtk wpa_supplicant iw dialog zsh
+#pacman -S ifplugd # is needed?
+pacman -S rxvt-unicode  
+pacman -S virtualbox-guest-utils  virtualbox-guest-modules dkms # for installation into Virtual Box
 
-systemctl status dhcpcd@enp0s3.service
-
-#useradd -m -G wheel -s /bin/bash petras
-useradd -m -G users,audio,video,wheel,storage,optical,power,games,lp -s /bin/bash petras
+useradd -m -G wheel -s /bin/zsh petras
+passwd petras
 
 nano /etc/sudoers
 
@@ -98,14 +70,31 @@ nano /etc/sudoers
 # petras ALL=(ALL) ALL
 ## or uncoment WHEEL line
 
-passwd petras
+pacman -S alsa-utils alsa-tools alsa-plugins alsa-oss
 
-logout
-login # as petras
-logout
-login # as root
-================================================================================
-pacman -S alsa-utils alsa-plugins alsa-oss
+alsamixer
+sudo alsactl store
+
+----- reboot & login as user (petras)
+
+#### ACER-NTB ####
+lspci -k # to get list of pci devices 
+ip link # to show connections and get name of Wi-Fi device (wlp4s0)
+ip link set wlp4s0 up # turn device on (just for sure)
+iw dev wlp4s0 scan | less # list of available networks with possibility to list 
+iw dev wlp4s0 scan | grep SSID # get simple list of available networks 
+iw dev wlp4s0 scan SSID (network) # get parameters of network 
+wpa_supplicant -B -D nl80211,next -i wlan0 -c <(wpa_passphrase "your_SSID" "your_key") # set the password for network 
+dhcpcd wlp4s0 # to connect using Wi-Fi 
+####
+#### VIRTUAL-BOX ####
+ip link # get inteface name like 'enp0s3'
+sudo dhcpcd enp0s3 # to get temporary internet connection on line - 
+####
+
+sudo pacman - S xorg xorg-xinit rxvt-unicode
+================================================================
+================================================================
 
 alsamixer
 #alsactl store
@@ -244,3 +233,10 @@ yaourt -S gcalculator
 # SiN
 # lib32 needed to run on 64bit system
 yaourt -S lib32-libpulse lib32-glibc lib32-mesa lib32-mesa-libgl
+
+
+
+
+
+
+######read -p "Press any key to continue... " -n1 -s
