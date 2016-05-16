@@ -109,7 +109,7 @@ cd yaourt
 makepkg -si
 cd ..
 ================================================================
-yaourt -S ttf-font-icons gtk-theme-dark-arc-git sunflower
+yaourt -S ttf-font-icons gtk-theme-dark-arc-git sunflower chromium-pepper-flash
 ================================================================
 
 ======================================================
