@@ -108,6 +108,17 @@ git clone https://aur.archlinux.org/yaourt.git
 cd yaourt
 makepkg -si
 cd ..
+----------------------------------------------------------------
+/etc/yaourtrc modification:
+# Prompt
+NOCONFIRM=1
+UP_NO_CONFIRM=1
+BUILD_NOCONFIRM=1
+EDIT_FILES=0
+NOENTER=1
+
+# Output
+USECOLOR=2
 ================================================================
 yaourt -S ttf-font-icons gtk-theme-dark-arc-git sunflower chromium-pepper-flash
 ================================================================

@@ -1,5 +1,4 @@
 
-
 # Arch linux installation guide #
 
 ![Arch live ISO](./imgs/arch-live.png)
