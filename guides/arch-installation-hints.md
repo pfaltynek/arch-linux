@@ -60,21 +60,30 @@ Boot into **arch** (probably *x86_64* version).
 loadkeys cz-qwertz
 setfont Lat2-Terminus16
 ```
-Jedem
-
-Jedem
-
-Jedem
-
-Jedem
-
-Jedem
-
-Jedem
-
-Jedem
 
 ## Disc preparation <a name="discprepare"></a>
+
+```bash
+lsblk
+cfdisk /dev/sda
+cfdisk /dev/sdb
+cfdisk /dev/sdc
+mkfs.ext4 /dev/sda1
+mkfs.ext4 /dev/sdc1
+mkswap /dev/sdb1
+swapon /dev/sdb1
+lsblk /dev/sda
+lsblk /dev/sdb
+lsblk /dev/sdc
+mount /dev/sda1 /mnt
+mkdir /mnt/home
+mount /dev/sdc1 /mnt/home
+```
+
+Use **timedatectl** to ensure the system clock is accurate:
+```bash
+timedatectl set-ntp true
+```
 
 ===
 
@@ -92,13 +101,21 @@ cs_CZ.UTF-8 UTF-8
 cs_CZ.ISO-8859-2
 ```
 
-```bash
-jpouza
-```
-
 	locale-gen
 	export LANG=cs_CZ.UTF-8
-	
-## Test2 ##
 
-# TEST3 #
+## Test2
+
+# TEST3
+
+## PACMAN optimalisation
+
+```bash
+pacman-optimize && sync
+```
+
+or
+
+```bash
+rankmirrors -n 10 /etc/pacman.d/mirrorlist.pacnew > /etc/pacman.d/mirrorlist
+```

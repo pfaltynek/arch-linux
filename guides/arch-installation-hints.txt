@@ -18,13 +18,22 @@ lsblk /dev/sdb
 lsblk /dev/sdc
 mount /dev/sda1 /mnt
 mkdir /mnt/home
-mount /dev/sdb1 /mnt/home
+mount /dev/sdc1 /mnt/home
+
+export LANG=cs_CZ.UTF-8
+pacstrap /mnt base base-devel
+arch-chroot /mnt 
+genfstab -p /mnt >> /mnt/etc/fstab
+nano /etc/locale.gen
+  cs_CZ.UTF-8 UTF-8
+  cs_CZ ISO-8859-2
+locale-gen
+export LANG=cs_CZ.UTF-8
+locale > /etc/locale.conf
 
 pacman-optimize && sync # instead of: rankmirrors -n 10 /etc/pacman.d/mirrorlist.pacnew > /etc/pacman.d/mirrorlist
-pacstrap /mnt base base-devel
-arch-chroot /mnt pacman -S grub-bios mc w3m
-genfstab -p /mnt >> /mnt/etc/fstab
-arch-chroot /mnt
+pacman -S grub-bios mc w3m imlib2 p7zip zip unrar samba
+
 echo petras-arch > /etc/hostname
 ln -s /usr/share/zoneinfo/Europe/Prague /etc/localtime
 ######## Not needed?
@@ -32,12 +41,7 @@ ln -s /usr/share/zoneinfo/Europe/Prague /etc/localtime
 #  # add hostname to the end of line starting '127.0.0.1' to look like
 #  #127.0.0.1	localhost.localdomain	localhost petras-arch-vb
 ########     
-nano /etc/locale.gen
-  cs_CZ.UTF-8 UTF-8
-  cs_CZ ISO-8859-2
-locale-gen
-export LANG=cs_CZ.UTF-8
-locale > /etc/locale.conf
+
 
 echo KEYMAP=cz-qwertz >> /etc/vconsole.conf 
 echo FONT=Lat2-Terminus16 >> /etc/vconsole.conf
