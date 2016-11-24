@@ -125,6 +125,8 @@ NOENTER=1
 USECOLOR=2
 ================================================================
 yaourt -S ttf-font-icons gtk-theme-dark-arc-git sunflower chromium-pepper-flash
+yaourt -S python2-gnomekeyring python2-notify vte mutagen gvfs python2-dbus
+
 ================================================================
 
 ======================================================
