@@ -103,6 +103,7 @@ sudo pacman -S gvfs gvfs-google gvfs-gphoto2 gvfs-mtp gvfs-nfs gvfs-smb
 sudo pacman -S parted gptfdisk ntfs-3g dosfstools gnome-keyring gvfs-afc mousepad chromium libgnome-keyring ttf-anonymous-pro ttf-dejavu ttf-bitstream-vera 
 ttf-ubuntu-font-family rofi lxappearance-gtk3 git
 sudo pacman - S xorg xorg-xinit rxvt-unicode
+sudo pacman - S arc-gtk-theme
 ================================================================
 git clone https://aur.archlinux.org/package-query.git
 cd package-query
@@ -124,7 +125,7 @@ NOENTER=1
 # Output
 USECOLOR=2
 ================================================================
-yaourt -S ttf-font-icons gtk-theme-dark-arc-git sunflower pepper-flash
+yaourt -S ttf-font-icons sunflower pepper-flash
 yaourt -S python2-gnomekeyring python2-notify vte mutagen gvfs python2-dbus
 
 ================================================================
