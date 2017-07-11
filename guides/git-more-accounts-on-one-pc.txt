@@ -12,3 +12,8 @@ The secondary has to be configured in the repository's config file (.git/config)
 	name = Petr Faltýnek
 	email = pfaltynek@gmail.com
 ################################################################################
+
+And into the windows credential use following accounts:
+	git:https://github.com					-> pfaltynek-als
+	git:https://pfaltynek-als@github.com	-> pfaltynek-als
+	git:https://pfaltynek@github.com		-> pfaltynek
