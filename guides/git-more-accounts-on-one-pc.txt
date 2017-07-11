@@ -1,0 +1,14 @@
+To use more than one GIT account on one PC, configure the primary in the main GIT config file (.gitconfig):
+[user]
+	name = Petr Faltýnek
+	email = pfaltynek@alliancels.cz
+[credential]
+	helper = wincred
+################################################################################
+The secondary has to be configured in the repository's config file (.git/config):
+[remote "origin"]
+	url = https://pfaltynek@github.com/pfaltynek/arch-linux.git 
+[user]
+	name = Petr Faltýnek
+	email = pfaltynek@gmail.com
+################################################################################
