@@ -20,32 +20,39 @@ mount /dev/sda1 /mnt
 mkdir /mnt/home
 mount /dev/sdc1 /mnt/home
 
-export LANG=cs_CZ.UTF-8
+timedatectl set-ntp true
+
 pacstrap /mnt base base-devel
-arch-chroot /mnt 
-genfstab -p /mnt >> /mnt/etc/fstab
+genfstab -U /mnt >> /mnt/etc/fstab
+arch-chroot /mnt
+
+ln -sf /usr/share/zoneinfo/Europe/Prague /etc/localtime
+hwclock --systohc
+
 nano /etc/locale.gen
   cs_CZ.UTF-8 UTF-8
   cs_CZ ISO-8859-2
 locale-gen
 export LANG=cs_CZ.UTF-8
-locale > /etc/locale.conf
 
-pacman-optimize && sync # instead of: rankmirrors -n 10 /etc/pacman.d/mirrorlist.pacnew > /etc/pacman.d/mirrorlist
-pacman -S grub-bios mc w3m imlib2 p7zip zip unrar samba
+nano /etc/locale.conf
+	add line:
+	LANG=cs_CZ.UTF-8
 
-echo petras-arch > /etc/hostname
-ln -s /usr/share/zoneinfo/Europe/Prague /etc/localtime
-######## Not needed?
-#nano /etc/hosts
-#  # add hostname to the end of line starting '127.0.0.1' to look like
-#  #127.0.0.1	localhost.localdomain	localhost petras-arch-vb
-########     
-
-
-echo KEYMAP=cz-qwertz >> /etc/vconsole.conf 
+echo KEYMAP=cz-qwertz > /etc/vconsole.conf 
 echo FONT=Lat2-Terminus16 >> /etc/vconsole.conf
 echo FONT_MAP=8859-2_to_uni >> /etc/vconsole.conf
+
+echo petras-arch > /etc/hostname
+nano /etc/hosts
+	#add following lines
+	127.0.0.1	localhost.localdomain	localhost
+	::1			localhost.localdomain	localhost
+	127.0.1.1	petrasvb.localdomain	petrasvb
+
+pacman-optimize && sync # instead of: rankmirrors -n 10 /etc/pacman.d/mirrorlist.pacnew > /etc/pacman.d/mirrorlist
+
+pacman -S grub-bios mc w3m imlib2 p7zip zip unrar samba
   
 nano /etc/mkinitcpio.conf
   #add 'consolefont' into HOOKS:
@@ -63,7 +70,7 @@ passwd
 pacman -S wicd wicd-gtk wpa_supplicant iw dialog zsh
 #pacman -S ifplugd # is needed?
 pacman -S rxvt-unicode  
-pacman -S virtualbox-guest-utils  virtualbox-guest-modules dkms # for installation into Virtual Box
+pacman -S virtualbox-guest-utils  virtualbox-guest-modules-arch dkms # for installation into Virtual Box
 
 useradd -m -G wheel -s /bin/zsh petras
 passwd petras
@@ -77,9 +84,7 @@ nano /etc/sudoers
 pacman -S alsa-utils alsa-tools alsa-plugins alsa-oss
 
 alsamixer
-sudo alsactl store
-
-
+##not possible???## sudo alsactl store
 
 ----- reboot & login as user (petras)
 
@@ -98,12 +103,23 @@ ip link # get inteface name like 'enp0s3'
 sudo dhcpcd enp0s3 # to get temporary internet connection on line - 
 ####
 
+sudo pacman -S zsh-theme-powerlevel9k # see https://github.com/bhilburn/powerlevel9k/wiki/Install-Instructions#step-1-install-powerlevel9k
+
 sudo pacman -S thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman 
 sudo pacman -S gvfs gvfs-google gvfs-gphoto2 gvfs-mtp gvfs-nfs gvfs-smb
 sudo pacman -S parted gptfdisk ntfs-3g dosfstools gnome-keyring gvfs-afc mousepad chromium libgnome-keyring ttf-anonymous-pro ttf-dejavu ttf-bitstream-vera 
 ttf-ubuntu-font-family rofi lxappearance-gtk3 git
-sudo pacman - S xorg xorg-xinit rxvt-unicode
+sudo pacman - S xorg xorg-xinit rxvt-unicode xterm
 sudo pacman - S arc-gtk-theme
+
+#### ACER-NTB ####
+localectl --no-convert set-x11-keymap cz acer_laptop "" terminate:ctrl_alt_bksp
+####
+#### VIRTUAL-BOX ####
+localectl --no-convert set-x11-keymap cz microsoft4000 "" terminate:ctrl_alt_bksp
+####
+
+startx
 ================================================================
 git clone https://aur.archlinux.org/package-query.git
 cd package-query
@@ -129,23 +145,6 @@ yaourt -S ttf-font-icons sunflower pepper-flash
 yaourt -S python2-gnomekeyring python2-notify vte mutagen gvfs python2-dbus
 
 ================================================================
-
-======================================================
-XkbModel
-	acer_c300
-	acer_ferrari4k
-	acer_laptop
-XkbLayout
-	cz
-XkbVariant
-	qwertz
-XkbOptions
-	terminate:ctrl_alt_bksp
-####### into .xinitrc:
-setxkbmap -model acer_laptop -layout cz  -option terminate:ctrl_alt_bksp
-======================================================
-
-
 
 
 
