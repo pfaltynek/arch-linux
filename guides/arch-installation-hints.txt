@@ -103,7 +103,36 @@ ip link # get inteface name like 'enp0s3'
 sudo dhcpcd enp0s3 # to get temporary internet connection on line - 
 ####
 
-sudo pacman -S zsh-theme-powerlevel9k # see https://github.com/bhilburn/powerlevel9k/wiki/Install-Instructions#step-1-install-powerlevel9k
+sudo pacman -S zsh-completions grml-zsh-config
+
+cp /etc/zsh/zshrc ~/.zshrc
+nano ~/.zshrc
+# insert following content:
+##### start of .zshrc content #####
+
+HISTFILE=~/.histfile
+HISTSIZE=10000
+SAVEHIST=10000
+bindkey -e
+zstyle ':completion:*' completer _complete _ignored
+zstyle :compinstall filename '/home/petras/.zshrc'
+
+autoload -Uz compinit
+compinit
+
+prompt adam2
+
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+
+[[ -n "$key[Up]"   ]] && bindkey -- "$key[Up]"   up-line-or-beginning-search
+[[ -n "$key[Down]" ]] && bindkey -- "$key[Down]" down-line-or-beginning-search
+
+#source /usr/share/zsh-theme-powerlevel9k/powerlevel9k.zsh-theme
+##### end of .zshrc content #####
+
+
 
 sudo pacman -S thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman 
 sudo pacman -S gvfs gvfs-google gvfs-gphoto2 gvfs-mtp gvfs-nfs gvfs-smb
@@ -146,7 +175,8 @@ yaourt -S python2-gnomekeyring python2-notify vte mutagen gvfs python2-dbus
 
 ================================================================
 
-
+sudo pacman -S zsh-theme-powerlevel9k powerline-fonts# see https://github.com/bhilburn/powerlevel9k/wiki/Install-Instructions#step-1-install-powerlevel9k
+you
 
 
 
