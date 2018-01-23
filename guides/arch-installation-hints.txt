@@ -32,6 +32,7 @@ hwclock --systohc
 nano /etc/locale.gen
   cs_CZ.UTF-8 UTF-8
   cs_CZ ISO-8859-2
+  en_US.UTF-8 UTF-8
 locale-gen
 export LANG=cs_CZ.UTF-8
 
@@ -52,7 +53,7 @@ nano /etc/hosts
 
 pacman-optimize && sync # instead of: rankmirrors -n 10 /etc/pacman.d/mirrorlist.pacnew > /etc/pacman.d/mirrorlist
 
-pacman -S grub-bios mc w3m imlib2 p7zip zip unrar samba
+pacman -S grub-bios mc imlib2 p7zip zip unrar samba
   
 nano /etc/mkinitcpio.conf
   #add 'consolefont' into HOOKS:
@@ -69,7 +70,7 @@ passwd
 
 pacman -S wicd wicd-gtk wpa_supplicant iw dialog zsh
 #pacman -S ifplugd # is needed?
-pacman -S rxvt-unicode  
+pacman -S rxvt-unicode-256xresources  
 pacman -S virtualbox-guest-utils  virtualbox-guest-modules-arch dkms # for installation into Virtual Box
 
 useradd -m -G wheel -s /bin/zsh petras
@@ -103,7 +104,7 @@ ip link # get inteface name like 'enp0s3'
 sudo dhcpcd enp0s3 # to get temporary internet connection on line - 
 ####
 
-sudo pacman -S zsh-completions grml-zsh-config
+sudo pacman -S zsh-completions
 
 cp /etc/zsh/zshrc ~/.zshrc
 nano ~/.zshrc
@@ -138,7 +139,7 @@ sudo pacman -S thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volm
 sudo pacman -S gvfs gvfs-google gvfs-gphoto2 gvfs-mtp gvfs-nfs gvfs-smb
 sudo pacman -S parted gptfdisk ntfs-3g dosfstools gnome-keyring gvfs-afc mousepad chromium libgnome-keyring ttf-anonymous-pro ttf-dejavu ttf-bitstream-vera 
 ttf-ubuntu-font-family rofi lxappearance-gtk3 git
-sudo pacman - S xorg xorg-xinit rxvt-unicode xterm
+sudo pacman - S xorg xorg-xinit xterm
 sudo pacman - S arc-gtk-theme
 
 #### ACER-NTB ####
@@ -147,8 +148,6 @@ localectl --no-convert set-x11-keymap cz acer_laptop "" terminate:ctrl_alt_bksp
 #### VIRTUAL-BOX ####
 localectl --no-convert set-x11-keymap cz microsoft4000 "" terminate:ctrl_alt_bksp
 ####
-
-startx
 ================================================================
 git clone https://aur.archlinux.org/package-query.git
 cd package-query
@@ -158,25 +157,29 @@ git clone https://aur.archlinux.org/yaourt.git
 cd yaourt
 makepkg -si
 cd ..
-----------------------------------------------------------------
-/etc/yaourtrc modification:
-# Prompt
-NOCONFIRM=1
-UP_NO_CONFIRM=1
-BUILD_NOCONFIRM=1
-EDIT_FILES=0
-NOENTER=1
-
-# Output
-USECOLOR=2
 ================================================================
 yaourt -S ttf-font-icons sunflower pepper-flash
 yaourt -S python2-gnomekeyring python2-notify vte mutagen gvfs python2-dbus
-
+yaourt -S ttf-iosevka
 ================================================================
 
 sudo pacman -S zsh-theme-powerlevel9k powerline-fonts# see https://github.com/bhilburn/powerlevel9k/wiki/Install-Instructions#step-1-install-powerlevel9k
-you
+mkdir -p .oh-my-zsh/themes	#prepare themes dir in user directory
+cd /usr/share/zsh-theme-powerlevel9k # move into theme folder
+ln -s $PWD/powerlevel9k.zsh-theme ~/.oh-my-zsh/themes # make symlink
+modify #ZSH_CUSTOM=$HOME/path_to ... to "ZSH_CUSTOM=$HOME/.oh-my-zsh"
+
+sudo pacman -S lightdm lightdm-gtk-greeter accountsservice
+sudo systemctl enable lightdm 
+
+yaourt -S i3-wm i3blocks i3status j4-dmenu-desktop
+
+
+cp /etc/X11/xinit/xinitrc ~/.xinitrc
+## comment default xterm, twm and other lines and add:
+	exec i3
+
+startx
 
 
 
@@ -205,11 +208,6 @@ cp /etc/X11/xinit/xinitrc ~/.xinitrc
 	exec i3
 
 startx
-
-localectl set-x11-keymap cz qwertz	
-	## možná bude nutno znovu nano /etc/vconsole.conf
-#localectl set-x11-keymap cz microsoft4000 qwertz
-#localectl set-x11-keymap cz acer_laptop qwertz
 
 yaourt -S pkgcacheclean gtk-theme-arc-git
 yaourt -S git subversion thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman thunar-vcs-plugin
